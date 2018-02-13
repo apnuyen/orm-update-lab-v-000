@@ -44,17 +44,17 @@ class Student
   end
 
   def self.new_from_db(row)
-    new_song = self.new  # self.new is the same as running Song.new
-    new_song.id = row[0]
-    new_song.name =  row[1]
-    new_song.length = row[2]
-    new_song
+    new_student = self.new  # self.new is the same as running Song.new
+    new_student.id = row[0]
+    new_student.name =  row[1]
+    new_student.grade = row[2]
+    new_student
   end
 
   def self.find_by_name
     sql = <<-SQL
       SELECT *
-      FROM songs
+      FROM students
       WHERE name = ?
       LIMIT 1
     SQL
@@ -65,8 +65,8 @@ class Student
   end
 
   def update
-    sql = "UPDATE songs SET name = ?, album = ? WHERE id = ?"
-    DB[:conn].execute(sql, self.name, self.album, self.id)
+    sql = "UPDATE students SET name = ?, grade = ? WHERE id = ?"
+    DB[:conn].execute(sql, self.name, self.grade, self.id)
   end
 
 
