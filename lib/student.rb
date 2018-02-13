@@ -12,10 +12,10 @@ class Student
 
   def self.create_table
     sql =  <<-SQL
-      CREATE TABLE IF NOT EXISTS songs (
+      CREATE TABLE IF NOT EXISTS students (
         id INTEGER PRIMARY KEY,
         name TEXT,
-        album TEXT
+        grade INTEGER
         )
         SQL
     DB[:conn].execute(sql)
@@ -33,14 +33,14 @@ class Student
   			VALUES (?, ?)
       	SQL
   		DB[:conn].execute(sql, self.name, self.grade)
-  		@id = DB[:conn].execute("SELECT last_insert_rowid() FROM songs")[0][0]
+  		@id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
   	end
   end
 
   def self.create(name:, grade:)
-    song = Song.new(name, album)
-    song.save
-    song
+    student = Student.new(name, grade)
+    student.save
+    student
   end
 
   def self.new_from_db(row)
